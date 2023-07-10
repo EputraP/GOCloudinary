@@ -1,7 +1,5 @@
 package images
 
-import "GOCloudinary/pkg/images/cloud"
-
 type ImageInterface interface {
 	Upload()
 	Unlink()
@@ -21,6 +19,6 @@ func NewImages(bucket, apiKey, apiSecrete string) Image {
 	}
 }
 
-func (i Image) BuildCloudinary() cloud.Cloudinary {
-	return cloud.NewCloudinary(i.BucketName, i.APIKey, i.APISecrete)
+func (i Image) BuildCloudinary() Cloudinary {
+	return NewCloudinary(i.BucketName, i.APIKey, i.APISecrete)
 }
