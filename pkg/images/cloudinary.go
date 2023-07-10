@@ -30,7 +30,7 @@ func NewCloudinary(cloudName, apiKey, apiSecrete string) Cloudinary {
 
 func (c Cloudinary) Upload(ctx context.Context, file interface{}) error {
 	res, err := c.Cloud.Upload.Upload(ctx, file, uploader.UploadParams{
-		PublicID: "Ini dari public ID",
+		PublicID: "test1",
 	})
 
 	if err != nil {
