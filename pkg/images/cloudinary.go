@@ -6,6 +6,7 @@ import (
 
 	"github.com/cloudinary/cloudinary-go/v2"
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
+	"github.com/google/uuid"
 )
 
 type Cloudinary struct {
@@ -16,7 +17,7 @@ type Cloudinary struct {
 type Option struct {
 }
 
-// menit 44.50
+// menit 53.56
 func NewCloudinary(cloudName, apiKey, apiSecrete string) Cloudinary {
 	c, err := cloudinary.NewFromParams(cloudName, apiKey, apiSecrete)
 	if err != nil {
@@ -28,9 +29,13 @@ func NewCloudinary(cloudName, apiKey, apiSecrete string) Cloudinary {
 	}
 }
 
-func (c Cloudinary) Upload(ctx context.Context, file interface{}) error {
+func (c Cloudinary) Upload(ctx context.Context, file interface{}, path string) error {
+
+	filename := uuid.NewString()
+
 	res, err := c.Cloud.Upload.Upload(ctx, file, uploader.UploadParams{
-		PublicID: "test1",
+		PublicID: "testImage/" + path + "/" + filename,
+		Eager:    "q_10",
 	})
 
 	if err != nil {
@@ -41,4 +46,15 @@ func (c Cloudinary) Upload(ctx context.Context, file interface{}) error {
 
 	return nil
 
+}
+
+func (c Cloudinary) Delete(ctx context.Context, path string) error {
+	res, err := c.Cloud.Upload.Destroy(ctx, uploader.DestroyParams{
+		PublicID: path,
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v\n", res)
+	return nil
 }

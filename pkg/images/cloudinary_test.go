@@ -33,7 +33,14 @@ func TestBuildCloudinary(t *testing.T) {
 }
 
 func TestUpload(t *testing.T) {
-	err := cloud.Upload(context.Background(), "https://upload.wikimedia.org/wikipedia/id/3/36/Naruto_Uzumaki.png")
+	err := cloud.Upload(context.Background(), "https://upload.wikimedia.org/wikipedia/id/3/36/Naruto_Uzumaki.png", "ngetesAja")
+
+	require.Nil(t, err)
+}
+
+func TestDelete(t *testing.T) {
+
+	err := cloud.Delete(context.Background(), "v1689082144/testImage/ngetesAja/2698ed4f-deed-4d15-b5c1-9cde4f2347a1.png")
 
 	require.Nil(t, err)
 }
